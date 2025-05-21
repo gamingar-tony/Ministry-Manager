@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from .forms import CustomUserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from .models import ScheduleEntry
 
 def register_view(request):
     if request.method == 'POST':
@@ -34,3 +37,11 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/login/')
+
+@login_required
+def home_view(request):
+    upcoming = ScheduleEntry.objects.filter(user = request.user, date__gte = timezone.now().date()).order_by('date')[:5]
+    return render(request, 'home.html', {
+        'user': request.user,
+        'upcoming': upcoming,
+    })
