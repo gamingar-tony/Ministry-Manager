@@ -1,0 +1,12 @@
+<h1>Welcome, {{user.username}}!</h1>
+
+<h2>Your Upcoming Schedule</h2>
+<ul>
+    {% for entry in upcoming %}
+    <li>{{entry.date}} at {{entry.time}} - {{entry.role}}</li>
+    {% empty %}
+    <li>No upcoming roles.</li>
+    {% endfor %}
+</ul>
+
+<p><a href="{% url 'logout' %}">Logout</a></p>
