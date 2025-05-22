@@ -1,0 +1,34 @@
+<!--templates/schedule.html-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Full Schedule</title>
+    </head>
+    <body>
+        <h1>All Scheduled Roles</h1>
+        {% if all_events %}
+        <table border="1">
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>User</th>
+                <th>Role</th>
+                <th>Location</th>
+            </tr>
+            {% for event in all_events %}
+            <tr>
+                <td>{{event.date}}</td>
+                <td>{{event.time}}</td>
+                <td>{{event.user.get_full_name|default:event.user.username}}</td>
+                <td>{{event.role}}</td>
+                <td>{{event.location}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>No scheduled roles.</p>
+        {% endif %}
+
+        <a href="{% url 'home' %}">Home</a>
+    </body>
+</html>

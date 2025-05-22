@@ -51,3 +51,8 @@ def my_schedule(request):
     # Placeholder - you'll betch user-specific events later
     events = Schedule.objects.filter(user = request.user).order_by('date', 'time')
     return render(request, 'my_schedule.html', {'events': events})
+
+@login_required
+def schedule_view(request):
+    all_events = Schedule.objects.select_related('user').order_by('date', 'time')
+    return render(request, 'schedule.html', {'all_events': all_events})
