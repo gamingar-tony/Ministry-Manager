@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
 from .forms import CustomUserCreationForm
+from .models import ScheduleEntry, Schedule
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import ScheduleEntry
 
 def register_view(request):
     if request.method == 'POST':
@@ -49,5 +49,5 @@ def home_view(request):
 @login_required
 def my_schedule(request):
     # Placeholder - you'll betch user-specific events later
-    events = []
+    events = Schedule.objects.filter(user = request.user).order_by('date', 'time')
     return render(request, 'my_schedule.html', {'events': events})

@@ -9,7 +9,10 @@
         {% if events %}
         <ul>
             {% for event in events %}
-            <li>{{event.date}}: {{event.description}}</li>
+            <li>
+                {{event.date}} at {{event.time}} - {{event.role}}
+                {% if event.location %} ({{event.location}}) {% endif %}
+            </li>
             {% endfor %}
         </ul>
         {% else %}

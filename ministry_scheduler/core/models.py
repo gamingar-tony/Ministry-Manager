@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 
 class User(AbstractUser):
     ROLE_CHOICES = [
@@ -18,3 +19,13 @@ class ScheduleEntry(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.role} on {self.date} at {self.time}"
+
+class Schedule(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+    role = models.CharField(max_length = 100)
+    date = models.DateField()
+    time = models.TimeField()
+    location = models.CharField(max_length = 100, blank = True)
+
+    def __str__(self):
+        return f"{self.role} for {self.user.username} on {self.date}"
