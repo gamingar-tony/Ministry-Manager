@@ -45,3 +45,9 @@ def home_view(request):
         'user': request.user,
         'upcoming': upcoming,
     })
+
+@login_required
+def my_schedule(request):
+    # Placeholder - you'll betch user-specific events later
+    events = []
+    return render(request, 'my_schedule.html', {'events': events})
