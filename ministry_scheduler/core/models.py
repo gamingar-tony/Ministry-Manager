@@ -21,7 +21,7 @@ class ScheduleEntry(models.Model):
         return f"{self.user.username} - {self.role} on {self.date} at {self.time}"
 
 class Schedule(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, null = True, blank = True)
     role = models.CharField(max_length = 100)
     date = models.DateField()
     time = models.TimeField()

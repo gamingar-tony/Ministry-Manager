@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Open Positions</title>
+    </head>
+    <body>
+        <h1>Open Positions</h1>
+        {% if unfilled %}
+        <ul>
+            {% for slot in unfilled %}
+            <li>
+                {{slot.date}} at {{slot.time}} - {{slot.role}}
+                {% if slot.location %} ({{slot.location}}) {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>All roles are currently filled.</p>
+        {% endif %}
+        <a href="{% url 'home' %}">Home</a>
+    </body>
+</html>

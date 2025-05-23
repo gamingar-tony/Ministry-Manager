@@ -56,3 +56,8 @@ def my_schedule(request):
 def schedule_view(request):
     all_events = Schedule.objects.select_related('user').order_by('date', 'time')
     return render(request, 'schedule.html', {'all_events': all_events})
+
+@login_required
+def open_positions(request):
+    unfilled = Schedule.objects.filter(user__isnull = True).order_by('date', 'time')
+    return render(request, 'open_positions.html', {'unfilled': unfilled})
