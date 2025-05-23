@@ -48,7 +48,7 @@ def home_view(request):
 
 @login_required
 def my_schedule(request):
-    # Placeholder - you'll betch user-specific events later
+    # Placeholder - you'll fetch user-specific events later
     events = Schedule.objects.filter(user = request.user).order_by('date', 'time')
     return render(request, 'my_schedule.html', {'events': events})
 
