@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Manage Roles</title>
+    </head>
+    <body>
+        <h1>Manage User Roles</h1>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <table border="1">
+            <tr>
+                <th>Username</th>
+                <th>Current Role</th>
+                <th>Change To</th>
+            </tr>
+            {% for u in users %}
+            <tr>
+                <td>{{u.first_name}} {{u.last_name}}</td>
+                <td>
+                    {% if u.is_superuser %}Superuser
+                    {% elif u.is_staff %}Staff
+                    {% else %}Volunteer
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="user_id" value="{{u.id}}">
+                        <select name="role">
+                            <option value="volunteer">Volunteer</option>
+                            <option value="staff">Staff</option>
+                            <option value="superuser">Superuser</option>
+                        </select>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'home' %}">Home</a>
+    </body>
+</html>

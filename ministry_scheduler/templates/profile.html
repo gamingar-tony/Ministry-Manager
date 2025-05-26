@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Edit Profile</title>
+    </head>
+    <body>
+        <h1>My Profile</h1>
+
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <p>
+            <strong>Username:</strong>
+            {% if edit_field == 'username' %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="field" value="username">
+                <input type="text" name="value" value="{{user.username}}">
+                <button type="submit">Save</button>
+            </form>
+            {% else %}
+            {{user.username}}
+            <a href="?edit=username"><button>Edit</button></a>
+            {% endif %}
+        </p>
+
+        <p>
+            <strong>First name:</strong>
+            {% if edit_field == 'first_name' %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="field" value="first_name">
+                <input type="text" name="value" value="{{user.first_name}}">
+                <button type="submit">Save</button>
+            </form>
+            {% else %}
+            {{user.first_name}}
+            <a href="?edit=first_name"><button>Edit</button></a>
+            {% endif %}
+        </p>
+
+        <p>
+            <strong>Last name:</strong>
+            {% if edit_field == 'last_name' %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="field" value="last_name">
+                <input type="text" name="value" value="{{user.last_name}}">
+                <button type="submit">Save</button>
+            </form>
+            {% else %}
+            {{user.last_name}}
+            <a href="?edit=last_name"><button>Edit</button></a>
+            {% endif %}
+        </p>
+
+        <p>
+            <strong>Email:</strong>
+            {% if edit_field == 'email' %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="field" value="email">
+                <input type="text" name="value" value="{{user.email}}">
+                <button type="submit">Save</button>
+            </form>
+            {% else %}
+            {{user.email}}
+            <a href="?edit=email"><button>Edit</button></a>
+            {% endif %}
+        </p>
+
+        <p>
+            <strong>Role:</strong>
+            {% if user.is_superuser %}
+            Admin
+            {% elif user.is_staff %}
+            Staff
+            {% else %}
+            Volunteer
+            {% endif %}
+        </p>
+
+        </form>
+        <a href="{% url 'home' %}">Home</a>
+    </body>
+</html>

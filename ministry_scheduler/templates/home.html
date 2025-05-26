@@ -24,12 +24,6 @@
     <body>
         <header>
             <h1>Welcome, {{user.username}}!</h1>
-            <nav>
-                <a href="{% url 'my_schedule' %}">My Schedule</a>
-                <a href="{% url 'schedule' %}">Full Schedule</a>
-                <a href="{% url 'open_positions' %}">Open Positions</a>
-                <a href="{% url 'logout' %}">Logout</a>
-            </nav>
         </header>
         <h2>Your Upcoming Schedule</h2>
         <ul>
@@ -39,8 +33,15 @@
             <li>No upcoming roles.</li>
             {% endfor %}
         </ul>
-        <footer>
-            <p>&copy; 2025 Anthony Raemsch</p>
-        </footer>
     </body>
+    <footer>
+        <nav>
+            <a href="{% url 'my_schedule' %}">My Schedule</a>
+            <a href="{% url 'schedule' %}">Full Schedule</a>
+            <a href="{% url 'open_positions' %}">Open Positions</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+        <p>&copy; 2025 Anthony Raemsch</p>
+    </footer>
 </html>
