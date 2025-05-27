@@ -124,7 +124,7 @@ def manage_roles(request):
 
 @login_required
 def settings_view(request):
-    profile = request.user.profile
+    profile = request.user
 
     if request.method == 'POST':
         email_notifications = request.POST.get('email_notifications') == 'on'

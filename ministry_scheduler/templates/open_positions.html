@@ -17,6 +17,20 @@
         {% else %}
         <p>All roles are currently filled.</p>
         {% endif %}
-        <a href="{% url 'home' %}">Home</a>
     </body>
+
+    <footer>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'my_schedule' %}">My Schedule</a>
+            <a href="{% url 'schedule' %}">Full Schedule</a>
+            <a href="{% url 'open_positions' %}">Open Positions</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'settings' %}">Settings</a>
+            <a href="{% url 'homily_import' %}">Homilies</a>
+            <a href="{% url 'notes' %}">Notes</a>
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+        <p>&copy; 2025 Anthony Raemsch</p>
+    </footer>
 </html>
