@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Homily
+from .models import User, Homily, Note
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -24,3 +24,8 @@ class HomilyForm(forms.ModelForm):
     class Meta:
         model = Homily
         fields = ['title', 'content', 'date', 'file']
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = ['title', 'content', 'is_public']

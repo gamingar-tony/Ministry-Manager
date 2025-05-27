@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width-device=width, initial-scale=1.0">
+        <title>Notes</title>
+    </head>
+    <body>
+        <h1>My Notes</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit">Save Note</button>
+        </form>
+        <hr>
+
+        <h2>Your Notes</h2>
+        <ul>
+            {% for note in my_notes %}
+            <li><strong>{{note.title}}</strong>: {{note.content}} ({{note.created_at|date:"M d, Y H:i"}})</li>
+            {% empty %}
+            <li>No notes yet.</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Shared Notes</h2>
+        <ul>
+            {% for note in shared_notes %}
+            <li><strong>{{note.title}}</strong> (by {{note.created_by}}): {{note.content}}</li>
+            {% empty %}
+            <li>No shared notes.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'home' %}">Home</a>
+    </body>
+</html>

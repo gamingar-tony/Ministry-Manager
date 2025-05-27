@@ -1,5 +1,5 @@
-from .forms import CustomUserCreationForm, UserUpdateForm, HomilyForm
-from .models import ScheduleEntry, Schedule, Profile
+from .forms import CustomUserCreationForm, UserUpdateForm, HomilyForm, NoteForm
+from .models import ScheduleEntry, Schedule, Homily, Note
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import login, logout
@@ -155,3 +155,22 @@ def homily_import_view(request):
 
     homilies = Homily.objects.order_by('-date')
     return render(request, 'homily_import.html', {'form': form, 'homilies': homilies})
+
+@login_required
+def notes_view(request):
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+
+        if form.is_valid():
+            note = form.save(commit = False)
+            note.created_by = request.user
+            note.save()
+            return redirect('notes')
+
+    else:
+        form = NoteForm()
+
+    my_notes = Note.objects.filter(created_by = request.user)
+    shared_notes = Note.objects.filter(is_public = True).exclude(created_by = request.user)
+
+    return render(request, 'notes.html', {'form': form, 'my_notes': my_notes, 'shared_notes': shared_notes})
