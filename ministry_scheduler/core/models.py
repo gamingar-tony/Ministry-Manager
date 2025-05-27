@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from django.conf import settings
 
@@ -29,3 +29,22 @@ class Schedule(models.Model):
 
     def __str__(self):
         return f"{self.role} for {self.user.username} on {self.date}"
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE, related_name = 'profile')
+    email_notifications = models.BooleanField(default = True)
+    dark_mode = models.BooleanField(default = False)
+    is_superuser = models.BooleanField(default = False)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
+
+class Homily(models.Model):
+    title = models.CharField(max_length = 200)
+    content = models.TextField(blank = True)
+    date = models.DateField()
+    uploaded_by = models.ForeignKey(User, on_delete = models.SET_NULL, null = True, blank = True)
+    file = models.FileField(upload_to = 'homilies/', blank = True, null = True)
+
+    def __str__(self):
+        return f"{self.title} ({self.date})"

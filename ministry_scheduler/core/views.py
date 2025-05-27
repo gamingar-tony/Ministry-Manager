@@ -1,5 +1,5 @@
-from .forms import CustomUserCreationForm, UserUpdateForm
-from .models import ScheduleEntry, Schedule
+from .forms import CustomUserCreationForm, UserUpdateForm, HomilyForm
+from .models import ScheduleEntry, Schedule, Profile
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import login, logout
@@ -121,3 +121,37 @@ def manage_roles(request):
 
     users = User.objects.all().order_by('username')
     return render(request, 'manage_roles.html', {'users': users})
+
+@login_required
+def settings_view(request):
+    profile = request.user.profile
+
+    if request.method == 'POST':
+        email_notifications = request.POST.get('email_notifications') == 'on'
+        dark_mode = request.POST.get('dark_mode') == 'on'
+
+        profile.email_notifications = email_notifications
+        profile.dark_mode = dark_mode
+        profile.save()
+
+        messages.success(request, 'Settings saved.')
+        return redirect('settings')
+
+    return render(request, 'settings.html', {'profile': profile})
+
+@login_required
+def homily_import_view(request):
+    if request.method == 'POST':
+        form = HomilyForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            homily = form.save(commit = False)
+            homily.uploaded_by = request.user
+            homily.save()
+            return redirect('homily_import')
+
+    else:
+        form = HomilyForm()
+
+    homilies = Homily.objects.order_by('-date')
+    return render(request, 'homily_import.html', {'form': form, 'homilies': homilies})

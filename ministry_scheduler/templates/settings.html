@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Settings</title>
+    </head>
+    <body>
+        <h1>My Settings</h1>
+        
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{message}}</li>
+            {% endfor %}
+        </ul>]
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <label>
+                <input type="checkbox" name="email_notifications" {% if profile.email_notifications %}checked{% endif %}>Enable Email Notifications
+            </label>
+            <br>
+            <label>
+                <input type="checkbox" name="dark_mode" {% if profile.dark_mode%}checked{% endif %}>Enable Dark Mode
+            </label>
+            <br><br>
+
+            <button type="submit">Save Settings</button>
+        </form>
+
+        <a href="{% url 'home' %}">Home</a>
+    </body>
+</html>

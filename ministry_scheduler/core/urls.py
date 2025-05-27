@@ -11,4 +11,6 @@ urlpatterns = [
     path('open-positions/', views.open_positions, name = 'open_positions'),
     path('profile/', views.profile_view, name = 'profile'),
     path('admin/roles/', views.manage_roles, name = 'manage_roles'),
+    path('settings/', views.settings_view, name = 'settings'),
+    path('homily-import/', views.homily_import_view, name = 'homily_import'),
 ]
