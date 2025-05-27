@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width-device=width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <title>Homilies</title>
     </head>
     <body>
@@ -13,7 +15,7 @@
             <button type="submit">Submit</button>
         </form>
 
-        <h2>Recent Homilies/h2>
+        <h2>Recent Homilies</h2>
         <ul>
             {% for homily in homilies %}
             <li>
